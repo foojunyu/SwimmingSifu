@@ -95,15 +95,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const observer = new IntersectionObserver(function(entries) {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                entry.target.style.opacity = '0';
-                entry.target.style.transform = 'translateY(20px)';
-                
-                setTimeout(() => {
-                    entry.target.style.transition = 'all 0.5s ease';
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
-                }, 100);
-                
+                entry.target.classList.add('card-animate');
                 observer.unobserve(entry.target);
             }
         });
@@ -137,27 +129,6 @@ document.addEventListener('DOMContentLoaded', function() {
     levelButtons.forEach(button => {
         button.addEventListener('click', updateProgressIndicator);
     });
-
-    // Add print functionality
-    window.printGuide = function() {
-        window.print();
-    };
-
-    // Add share functionality
-    window.shareGuide = function() {
-        if (navigator.share) {
-            navigator.share({
-                title: 'Swimming Sifu - Swimming Guide',
-                text: 'Check out this comprehensive swimming guide from beginner to world class!',
-                url: window.location.href
-            }).catch(err => console.log('Error sharing:', err));
-        } else {
-            // Fallback: copy URL to clipboard
-            navigator.clipboard.writeText(window.location.href)
-                .then(() => alert('Link copied to clipboard!'))
-                .catch(err => console.log('Error copying:', err));
-        }
-    };
 
     // Log welcome message
     console.log('🏊 Welcome to Swimming Sifu!');
